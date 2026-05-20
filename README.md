@@ -8,22 +8,50 @@ To write a program to find the solution of a matrix using Gaussian Elimination.
 2. Anaconda – Python 3.7 Installation / Moodle-Code Runner
 
 ## Algorithm
-1. 
-2. 
-3. 
-4. 
+1.Start the program and read the number of unknowns n.
+2.Read the augmented matrix elements into matrix a.
+3.Apply forward elimination to convert the matrix into upper triangular form using row operations.
+4.Perform back substitution to calculate the values of unknowns x[i].
+5.Display the values of all unknowns and stop the program. 
 
 ## Program:
 ```
 /*
 Program to find the solution of a matrix using Gaussian Elimination.
-Developed by: 
-RegisterNumber: 
+Developed by: HARSHA NIVETHA A K 
+RegisterNumber: 212225230097
 */
+
+import os
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+import numpy as np
+import sys
+n=int(input())
+a=np.zeros((n,n+1))
+x=np.zeros(n)
+for i in range(n):
+    for j in range(n+1):
+        a[i][j]=float(input())
+for i in range(n):
+    if a[i][j]==0.0:
+        sys.exit('Divide by zero detected!')
+    for j in range(i+1,n):
+        ratio=a[j][i]/a[i][i]
+        for k in range(n+1):
+            a[j][k]=a[j][k]-ratio*a[i][k]
+x[n-1]=a[n-1][n]/a[n-1][n-1]
+for i in range(n-2,-1,-1):
+    x[i]=a[i][n]
+    for j in range(i+1,n):
+        x[i]=x[i]-a[i][j]*x[j]
+    x[i]=x[i]/a[i][i]
+for i in range(n):
+    print('X%d = %0.2f ' %(i,x[i]), end='')
 ```
 
 ## Output:
-![gaussian elimination]()
+
+<img width="1267" height="857" alt="image" src="https://github.com/user-attachments/assets/b57cbbc3-996f-4d1f-b029-cf634f7af362" />
 
 
 ## Result:
